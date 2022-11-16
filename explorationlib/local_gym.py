@@ -478,7 +478,7 @@ class Grid(Field):
         self.state = np.zeros(2, dtype=int)
         self.last()
 
-
+# this is a scent grid
 # ---
 class ScentGrid(Grid):
     """Am open-grid, with scent"""
