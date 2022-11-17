@@ -569,8 +569,11 @@ class ScentGrid(Grid):
 
         #update scent locations
         for target in self.targets:
-            target[0] += np.random.normal(0,1)
-            target[1] += np.random.normal(0,1)
+            u = np.random.normal(0,1)
+            v = np.random.normal(-np.pi,np.pi)
+            theta = 2*np.pi*v
+            target[0] = target[0] + u*np.cos(theta)
+            target[1] = target[1] + u*np.sin(theta)
 
         # Scent
         if self.scent_fn is not None:
