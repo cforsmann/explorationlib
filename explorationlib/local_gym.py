@@ -566,10 +566,11 @@ class ScentGrid(Grid):
     def step(self, action):
         # Move
         super().step(action)  # sets self.ind, etc
-        
+
         #update scent locations
-        self.scent_x_coord += np.random.normal(0,1)
-        self.scent_y_coord += np.random.normal(0,1)
+        for target in self.targets:
+            target[0] += np.random.normal(0,1)
+            target[1] += np.random.normal(0,1)
 
         # Scent
         if self.scent_fn is not None:
