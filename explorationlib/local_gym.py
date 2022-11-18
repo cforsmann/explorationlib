@@ -572,8 +572,8 @@ class ScentGrid(Grid):
             u = np.random.normal(0,1)
             v = np.random.normal(-np.pi,np.pi)
             theta = 2*np.pi*v
-            target[0] = target[0] + u*np.cos(theta)
-            target[1] = target[1] + u*np.sin(theta)
+            self.target[0] = self.target[0] + u*np.cos(theta)
+            self.target[1] = self.target[1] + u*np.sin(theta)
 
         # Scent
         if self.scent_fn is not None:
