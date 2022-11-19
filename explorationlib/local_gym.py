@@ -567,14 +567,6 @@ class ScentGrid(Grid):
         # Move
         super().step(action)  # sets self.ind, etc
 
-        #update scent locations
-        for target in self.targets:
-            u = np.random.normal(0,1)
-            v = np.random.normal(-np.pi,np.pi)
-            theta = 2*np.pi*v
-            self.target[0] = self.target[0] + u*np.cos(theta)
-            self.target[1] = self.target[1] + u*np.sin(theta)
-
         # Scent
         if self.scent_fn is not None:
             x, y = int(self.state[0]), int(self.state[1])
@@ -582,6 +574,38 @@ class ScentGrid(Grid):
         else:
             self.obs = 0.0
 
+        # ---------MOVE THE TARGETS AND THEIR SCENTS ----------------
+        # store previous state of target locations
+        target_state = copy.deepcopy(self.targets)
+
+        # clear targets
+        self.targets = []
+
+        # update target locations from stored array
+        for target in target_state:
+            # move each target via 2d brownian motion
+            u = np.random.normal(0,1)
+            v = np.random.normal(-np.pi,np.pi)
+            theta = 2*np.pi*v
+            self.target[0] = self.target[0] + u*np.cos(theta)
+            self.target[1] = self.target[1] + u*np.sin(theta)
+
+            #add each target to self.targets
+            self.targets.append(self.target)
+
+        # use add_scents() to initialize new grid of scents from stored target array w/updated locations
+        
+        # not sure how to get target_boundary or noise_sigma from the initialization........ask jack tomorrow
+        # magic numbers for now i guess
+        target_boundary = (100,100)
+        noise_sigma = 2
+
+        values = constant_values(self.targets, 1)
+        coord, scent = create_grid_scent(target_boundary, amplitude=1, sigma=10)
+        scents = [scent for _ in range(len(self.targets))]
+        self.add_scents(self.targets, values, coord, scents, noise_sigma=noise_sigma)
+
+        # ----------------RESUME COAXLAB CODE AS NORMAL-------------
         # !
         self.state_obs = (self.state, self.obs)
         return self.last()
