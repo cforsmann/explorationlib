@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-#test
+#testg
 import numpy as np
 import copy
 
@@ -589,11 +589,11 @@ class ScentGrid(Grid):
             u = np.random.normal(0,1)
             v = np.random.normal(-np.pi,np.pi)
             theta = 2*np.pi*v
-            self.target[0] = self.target[0] + u*np.cos(theta)
-            self.target[1] = self.target[1] + u*np.sin(theta)
+            target[0] = target[0] + u*np.cos(theta)
+            target[1] = target[1] + u*np.sin(theta)
 
             #add each target to self.targets
-            self.targets.append(self.target)
+            self.targets.append(target)
 
         # use add_scents() to initialize new grid of scents from stored target array w/updated locations
 
