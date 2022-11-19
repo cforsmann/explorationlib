@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 import numpy as np
+import copy
 
 from copy import deepcopy
 from itertools import cycle
@@ -594,7 +595,7 @@ class ScentGrid(Grid):
             self.targets.append(self.target)
 
         # use add_scents() to initialize new grid of scents from stored target array w/updated locations
-        
+
         # not sure how to get target_boundary or noise_sigma from the initialization........ask jack tomorrow
         # magic numbers for now i guess
         target_boundary = (100,100)
